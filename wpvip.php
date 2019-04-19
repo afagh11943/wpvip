@@ -21,9 +21,7 @@ define( 'wpsvip_DB_VERSION', 1 );
 
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'salcode_add_plugin_page_settings_link' );
 
-function gh(){
 
-}
 
 
 
