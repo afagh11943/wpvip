@@ -3,6 +3,6 @@
 echo "salam";
 
 
-function saman(){
+function aminkhalili(){
 
 }
