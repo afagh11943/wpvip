@@ -1,6 +1,8 @@
 <?php
 
 echo "salam";
-funcion amin(){
-  echo "amin";
+
+
+function saman(){
+
 }
