@@ -6,6 +6,6 @@ echo "salam";
 
 
 function aminkhalili(){
-	
+
 }
 
