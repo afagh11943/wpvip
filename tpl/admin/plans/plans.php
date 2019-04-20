@@ -11,9 +11,9 @@
         <thead>
         <tr>
 
-            <th id="cb" class="manage-column column-cb check-column" scope="col"></th> // this column contains checkboxes
-            <th id="columnname" class="manage-column column-columnname" scope="col"></th>
-            <th id="columnname" class="manage-column column-columnname num" scope="col"></th> // "num" added because the column contains numbers
+            <th id="columnname" class="manage-column column-columnname" scope="col">نام پنل</th>
+            <th id="columnname" class="manage-column column-columnname" scope="col">قیمت</th>
+            <th id="columnname" class="manage-column column-columnname num" scope="col">مدت اعتبار</th>
 
         </tr>
         </thead>
