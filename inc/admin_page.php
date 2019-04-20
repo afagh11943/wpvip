@@ -8,9 +8,12 @@ function mpvip_plans_page(){
 		case 'edit':
 			include wpsvip_TPL.'admin/plans/edit.php';
 			break;
+		case 'asl':
+			include wpsvip_TPL.'admin/plans/plans.php';
+			break;
 
 		default:
 			include wpsvip_TPL.'admin/plans/plans.php';
-			break;
+
 	}
 }
