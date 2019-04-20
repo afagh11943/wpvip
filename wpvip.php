@@ -19,7 +19,7 @@ define( 'wpsvip_IMAGES', trailingslashit( wpsvip_URL . 'assets' . '/' . 'images'
 define( 'wpsvip_FONTS', trailingslashit( wpsvip_URL . 'assets' . '/' . 'fonts' ) );
 define( 'wpsvip_DB_VERSION', 1 );
 
-add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'salcode_add_plugin_page_settings_link' );
+
 
 
 
