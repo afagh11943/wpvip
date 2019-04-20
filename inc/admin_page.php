@@ -8,7 +8,7 @@ function mpvip_plans_page()
 {
     $action = isset($_GET['action']) && !empty($_GET['action']) && ctype_alpha($_GET['action']) ? $_GET['action'] : null;
     global $wpdb;
-  
+
     switch ($action) {
         case 'edit':
             if (isset($_POST['submit'])) {
@@ -27,6 +27,7 @@ function mpvip_plans_page()
                     )
 
                 );
+
             }
 
             include wpsvip_TPL . 'admin/plans/edit.php';
