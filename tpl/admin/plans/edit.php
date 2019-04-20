@@ -1,32 +1,32 @@
 <div class="wrap">
 
     <h2>
+        اضافه کردن محصول
+        <a href="<?php echo esc_url(add_query_arg(array('action' => 'asl'))); ?>" class="page-title-action">لیست محصولات
+        </a>
 
-        اضافه کردن محصولات
+        <h2>
 
-        <a href="<?php echo esc_url(add_query_arg(array('action' => 'asl'))); ?>" class="page-title-action"> محصول
-            جدید</a>
-    </h2>
+            <form action="" method="post">
+                <table class="form-table">
+                    <tr valign="top">
+                        <th scope="row">عنوان محصول</th>
+                        <td>
+                            <input type="text" name="titel"/>
+                        </td>
+                    </tr>
 
-    <table class="form-table">
-        <tr valign="top">
-            <th scope="row">عنوان محصول</th>
-            <td>
-                <input type="text" name="titel" value=""/>
-            </td>
-        </tr>
+                    <tr valign="top">
+                        <th scope="row">قیمت</th>
+                        <td><input type="text" name="price"/></td>
+                    </tr>
 
-        <tr valign="top">
-            <th scope="row">قیمت</th>
-            <td><input type="text" name="price" value=""/></td>
-        </tr>
-
-        <tr valign="top">
-            <th scope="row"> اعتبار روزانه</th>
-            <td><input type="text" name="cerdit" value=""/></td>
-        </tr>
-    </table>
-
-
+                    <tr valign="top">
+                        <th scope="row"> اعتبار روزانه</th>
+                        <td><input type="text" name="cerdit"/></td>
+                    </tr>
+                </table>
+                <?php submit_button(); ?>
+            </form>
 </div>
 
