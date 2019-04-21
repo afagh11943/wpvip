@@ -2,7 +2,7 @@
 
     <h2>
         اضافه کردن محصول
-        <a href="<?php echo esc_url( add_query_arg( array( 'action' => 'asl' ) ) ); ?>" class="page-title-action">لیست
+        <a href="<?php echo esc_url( admin_url().'admin.php?page=wpvip_admin_plans' ); ?>" class="page-title-action">لیست
             محصولات
         </a>
 
