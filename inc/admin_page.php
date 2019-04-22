@@ -7,10 +7,16 @@ function mpvip_dashbord()
 function mpvip_plans_page()
 {
     $action = isset($_GET['action']) && !empty($_GET['action']) && ctype_alpha($_GET['action']) ? $_GET['action'] : null;
+    $item_id = isset($_GET['item-id']) && ctype_digit($_GET['item-id']) ? intval($_GET['item-id']) : null;
     global $wpdb;
+
     $tabalname = $wpdb->prefix . 'vip_plans';
     switch ($action) {
         case 'edit':
+if($item_id){
+    $plan_edit = $wpdb->get_row($wpdb->prepare("SELECT *  FROM {$tabalname} WHERE plan_ID=%d",$item_id));
+
+}
             if (isset($_POST['submit'])) {
                 $titel = sanitize_text_field($_POST['titel']);
                 $price = intval($_POST['price']);

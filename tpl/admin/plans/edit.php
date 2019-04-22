@@ -13,18 +13,18 @@
                     <tr valign="top">
                         <th scope="row">عنوان محصول</th>
                         <td>
-                            <input type="text" name="titel"/>
+                            <input type="text" name="titel" value="<?php echo isset($plan_edit)?$plan_edit->titel:""; ?>" />
                         </td>
                     </tr>
 
                     <tr valign="top">
                         <th scope="row">قیمت</th>
-                        <td><input type="text" name="price"/></td>
+                        <td><input type="text" name="price"  value="<?php echo isset($plan_edit)?$plan_edit->price:""; ?>"/></td>
                     </tr>
 
                     <tr valign="top">
                         <th scope="row"> اعتبار روزانه</th>
-                        <td><input type="text" name="cerdit"/></td>
+                        <td><input type="text" name="cerdit" value="<?php echo isset($plan_edit)?$plan_edit->credit:""; ?>" /></td>
                     </tr>
                 </table>
 				<?php submit_button(); ?>
