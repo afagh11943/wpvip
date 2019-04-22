@@ -14,6 +14,7 @@
             <th id="columnname" class="manage-column column-columnname" scope="col">نام پنل</th>
             <th id="columnname" class="manage-column column-columnname" scope="col">قیمت</th>
             <th id="columnname" class="manage-column column-columnname num" scope="col">مدت اعتبار</th>
+            <th id="columnname" class="manage-column column-columnname num" scope="col">عملیات</th>
 
         </tr>
         </thead>
@@ -24,17 +25,37 @@
             <th id="columnname" class="manage-column column-columnname" scope="col">نام پنل</th>
             <th id="columnname" class="manage-column column-columnname" scope="col">قیمت</th>
             <th id="columnname" class="manage-column column-columnname num" scope="col">مدت اعتبار</th>
+            <th id="columnname" class="manage-column column-columnname num" scope="col">عملیات</th>
+
 
 
         </tr>
         </tfoot>
 
         <tbody>
-        <tr class="alternate">
-            <th class="column-columnname" scope="row">ffff</th>
-            <td class="column-columnname">gggggg</td>
-            <td class="column-columnname">cccccc</td>
-        </tr>
+        <?php if(isset($plans) && count($plans)> 0):?>
+            <?php foreach($plans as $plan):?>
+                <tr class="alternate">
+                    <th class="column-columnname" scope="row"><?php echo $plan->titel; ?></th>
+                    <td class="column-columnname"><?php echo number_format($plan->price).' ریال' ; ?></td>
+                    <td class="column-columnname"><?php echo $plan->credit ;?></td>
+                    <td class="column-columnname">
+
+                        <a href="" class=""><span class="dashicons dashicons-edit"></span></a>
+                        <a href="" class=""><span class="dashicons dashicons-trash"></span></a>
+                    </td>
+                </tr>
+
+                <?php endforeach;?>
+
+        <?php else:?>
+<tr>
+    <td colspan="4">
+        هیچ رکوردی برای نمایش وجود ندارد
+    </td>
+</tr>
+        <?php endif;?>
+
 
         </tbody>
     </table>
