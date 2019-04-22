@@ -21,9 +21,10 @@
         <tfoot>
         <tr>
 
-            <th class="manage-column column-cb check-column" scope="col">1</th>
-            <th class="manage-column column-columnname" scope="col">2</th>
-            <th class="manage-column column-columnname num" scope="col">3</th>
+            <th id="columnname" class="manage-column column-columnname" scope="col">نام پنل</th>
+            <th id="columnname" class="manage-column column-columnname" scope="col">قیمت</th>
+            <th id="columnname" class="manage-column column-columnname num" scope="col">مدت اعتبار</th>
+
 
         </tr>
         </tfoot>
