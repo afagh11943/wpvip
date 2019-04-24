@@ -42,7 +42,7 @@
                     <td class="column-columnname">
 
                         <a href="<?php echo esc_url(add_query_arg(array('action' => 'edit', 'item-id' => $plan->plan_ID))) ?>" class=""><span class="dashicons dashicons-edit"></span></a>
-                        <a href="" class=""><span class="dashicons dashicons-trash"></span></a>
+                        <a href="<?php echo esc_url(add_query_arg(array('action' => 'delete', 'item-id' => $plan->plan_ID))) ?>" class="" onclick="return confirm('برای حذف ایتم مطمئن هستید؟')"><span class="dashicons dashicons-trash"></span></a>
                     </td>
                 </tr>
 
