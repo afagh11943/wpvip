@@ -26,7 +26,11 @@
                         <th scope="row"> اعتبار روزانه</th>
                         <td><input type="text" name="cerdit" value="<?php echo isset($plan_edit)?$plan_edit->credit:""; ?>" /></td>
                     </tr>
+                    
                 </table>
+                <?php if (isset($plan_edit)): ?>
+                    <input type="hidden" name="plan_ID" value="<?php echo $plan_edit->plan_ID ?>">
+                <?php endif;?>
 				<?php submit_button(); ?>
             </form>
 </div>
