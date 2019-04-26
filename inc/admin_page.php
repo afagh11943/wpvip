@@ -73,7 +73,7 @@ function mpvip_plans_page() {
 	}
 }
 
-function mpvip_user_page(){
+function mpvip_user_page() {
 	$action  = isset( $_GET['action'] ) && ! empty( $_GET['action'] ) && ctype_alpha( $_GET['action'] ) ? $_GET['action'] : null;
 	$item_id = isset( $_GET['item-id'] ) && ctype_digit( $_GET['item-id'] ) ? intval( $_GET['item-id'] ) : null;
 	global $wpdb;
@@ -82,17 +82,17 @@ function mpvip_user_page(){
 	$masege    = "اطلاعات با موفقیت ذخیره کردید.";
 	$tabalname = $wpdb->prefix . 'vip_users';
 
-	switch ($action){
+	switch ( $action ) {
 
 		default:
-			$wp_users = $wpdb->get_results("SELECT u.*,vu.*,vp.titel
+			$wp_users = $wpdb->get_results( "SELECT u.*,vu.*,vp.titel
  FROM {$wpdb->users} u
  JOIN {$tabalname} vu
  ON u.ID = vu.user_id
  JOIN {$wpdb->prefix}vip_plans vp
  ON vu.plan_ID = vp.plan_ID
- ");
-			var_dump($wp_users);
+ " );
+
 			require_once wpsvip_TPL . 'admin/users/user.php';
 			break;
 	}

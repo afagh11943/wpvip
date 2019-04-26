@@ -36,7 +36,8 @@
                             <th class="column-columnname" scope="row"><?php echo $wp_user->ID; ?></th>
                             <td class="column-columnname"><?php echo $wp_user->display_name; ?></td>
                             <td class="column-columnname"><?php echo $wp_user->titel;?></td>
-                            <td class="column-columnname"><?php echo $wp_user->expire_date;?></td>
+                            <td class="column-columnname"><?php echo parsidate("Y-m-d" ,$wp_user->expire_date,'per');
+                               ?></td>
                             <td class="column-columnname">
 
                                 <a href="<?php echo esc_url(add_query_arg(array('action' => 'edit', 'item-id' => $plan->plan_ID))) ?>" class=""><span class="dashicons dashicons-edit"></span></a>
