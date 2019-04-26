@@ -2,6 +2,8 @@
 
     <h2>
 		مدیریت کاربران
+
+        <a href="<?php echo esc_url(add_query_arg(array('action' => 'new'))) ?>" class="page-title-action">کار بر ویژه</a>
         <h2>
             <table class="widefat fixed" cellspacing="0">
                 <thead>
@@ -40,8 +42,8 @@
                                ?></td>
                             <td class="column-columnname">
 
-                                <a href="<?php echo esc_url(add_query_arg(array('action' => 'edit', 'item-id' => $plan->plan_ID))) ?>" class=""><span class="dashicons dashicons-edit"></span></a>
-                                <a href="<?php echo esc_url(add_query_arg(array('action' => 'delete', 'item-id' => $plan->plan_ID))) ?>" class="" onclick="return confirm('برای حذف ایتم مطمئن هستید؟')"><span class="dashicons dashicons-trash"></span></a>
+                                <a href="<?php echo esc_url(add_query_arg(array('action' => 'edit',  'usid' => $wp_user->user_id))) ?>" class=""><span class="dashicons dashicons-edit"></span></a>
+                                <a href="<?php echo esc_url(add_query_arg(array('action' => 'delete', 'usid' => $wp_user->user_id))) ?>" class="" onclick="return confirm('برای حذف ایتم مطمئن هستید؟')"><span class="dashicons dashicons-trash"></span></a>
                             </td>
                         </tr>
 

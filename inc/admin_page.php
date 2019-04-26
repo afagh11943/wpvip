@@ -62,7 +62,8 @@ function mpvip_plans_page() {
 			break;
 		case 'delete':
 			$wpdb->delete( $tabalname, array( 'plan_ID' => $item_id ), array( '%d' ) );
-			require_once wpsvip_TPL . 'admin/plans/plans.php';
+		wp_redirect(admin_url('admin.php?page=wpvip_admin_plans'));
+			exit();
 			break;
 		default:
 			$plans = $wpdb->get_results( "SELECT * FROM  {$tabalname}" );
@@ -75,7 +76,7 @@ function mpvip_plans_page() {
 
 function mpvip_user_page() {
 	$action  = isset( $_GET['action'] ) && ! empty( $_GET['action'] ) && ctype_alpha( $_GET['action'] ) ? $_GET['action'] : null;
-	$item_id = isset( $_GET['item-id'] ) && ctype_digit( $_GET['item-id'] ) ? intval( $_GET['item-id'] ) : null;
+	$usid = isset( $_GET['usid'] ) && ctype_digit( $_GET['usid'] ) ? intval( $_GET['usid'] ) : null;
 	global $wpdb;
 	$succsess  = false;
 	$error     = false;
@@ -83,6 +84,19 @@ function mpvip_user_page() {
 	$tabalname = $wpdb->prefix . 'vip_users';
 
 	switch ( $action ) {
+		case'delete':
+			if(intval($usid)){
+				$wpdb->delete( $tabalname, array( 'user_id' => $usid ), array( '%d' ) );
+				wp_redirect(admin_url('admin.php?page=wpvip_admin_users'));
+				exit();
+
+			}
+			break;
+		case'new':
+
+
+			require_once wpsvip_TPL . 'admin/users/new.php';
+			break;
 
 		default:
 			$wp_users = $wpdb->get_results( "SELECT u.*,vu.*,vp.titel

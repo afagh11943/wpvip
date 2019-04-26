@@ -19,6 +19,10 @@ define( 'wpsvip_IMAGES', trailingslashit( wpsvip_URL . 'assets' . '/' . 'images'
 define( 'wpsvip_FONTS', trailingslashit( wpsvip_URL . 'assets' . '/' . 'fonts' ) );
 define( 'wpsvip_DB_VERSION', 1 );
 
+add_action('init','wpwip_bufer');
+function wpwip_bufer(){
+	ob_start();
+}
 
 
 
