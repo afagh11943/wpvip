@@ -42,7 +42,7 @@
                                ?></td>
                             <td class="column-columnname">
 
-                                <a href="<?php echo esc_url(add_query_arg(array('action' => 'edit',  'usid' => $wp_user->user_id))) ?>" class=""><span class="dashicons dashicons-edit"></span></a>
+                                <a href="<?php echo esc_url(add_query_arg(array('action' => 'new',  'usid' => $wp_user->user_id))) ?>" class=""><span class="dashicons dashicons-edit"></span></a>
                                 <a href="<?php echo esc_url(add_query_arg(array('action' => 'delete', 'usid' => $wp_user->user_id))) ?>" class="" onclick="return confirm('برای حذف ایتم مطمئن هستید؟')"><span class="dashicons dashicons-trash"></span></a>
                             </td>
                         </tr>
