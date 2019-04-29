@@ -98,13 +98,31 @@ function mpvip_user_page()
 
         case'new':
             $users = $wpdb->get_results("SELECT ID,display_name FROM {$wpdb->users}");
-         $plans = $wpdb->get_results("SELECT plan_ID,titel FROM {$wpdb->prefix}vip_plans");
+            $plans = $wpdb->get_results("SELECT plan_ID,titel FROM {$wpdb->prefix}vip_plans");
+
+            if (isset($_POST['submit'])) {
+                $user_id = intval($_POST['user-id']);
+                $plans_id = intval($_POST['plan-id']);
+                $credit = intval($_POST['credit']);
+
+            }
 
             if (intval($usid)) {
-                //update
+
 
             } else {
-                //insert
+                $wpdb->insert($tabalname, array(
+                    'user_id' => $user_id,
+                    'plan_id' => $plans_id,
+                    'expire_date' => date("Y-m-d H:i:s", strtotime("+ {$credit} days"))
+                ), array(
+                        '%d',
+                        '%d',
+                        '%s'
+                    )
+
+                );
+
             }
             require_once wpsvip_TPL . 'admin/users/new.php';
             break;

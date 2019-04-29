@@ -26,10 +26,6 @@ function wpwip_bufer(){
 
 
 
-
-
-
-
 //activate & deactivation hook
 function wpsvip_activate() {
 
