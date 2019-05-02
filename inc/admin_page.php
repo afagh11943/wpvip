@@ -89,7 +89,7 @@ function mpvip_user_page()
     switch ($action) {
         case'delete':
             if (intval($usid)) {
-                $wpdb->delete($tabalname, array('user_id' => $usid), array('%d'));
+                $wpdb->delete($tabalname, array('ID' => $usid), array('%d'));
                 wp_redirect(admin_url('admin.php?page=wpvip_admin_users'));
                 exit();
 
@@ -104,13 +104,6 @@ function mpvip_user_page()
                 $user_id = intval($_POST['user-id']);
                 $plans_id = intval($_POST['plan-id']);
                 $credit = intval($_POST['credit']);
-
-            }
-
-            if (intval($usid)) {
-
-
-            } else {
                 $wpdb->insert($tabalname, array(
                     'user_id' => $user_id,
                     'plan_id' => $plans_id,
@@ -124,8 +117,27 @@ function mpvip_user_page()
                 );
 
             }
+
+
             require_once wpsvip_TPL . 'admin/users/new.php';
             break;
+        case'edit':
+            if (isset($_POST['submit'])) {
+                $type = intval($_POST['type']);
+                $credit = intval($_POST['credit']);
+                $uid = intval($_POST['uid']);
+                $mysql_date_type = $type == 1 ? DATE_ADD : DATE_SUB;
+                $wpdb->query($wpdb->prepare("UPDATE {$tabalname}
+                                             SET expire_date = {$mysql_date_type}(expire_date,INTERVAL %d DAY)
+                                             WHERE ID=%d", $credit, $uid));
+
+                wp_redirect(admin_url('admin.php?page=wpvip_admin_users'));
+                exit;
+
+            }
+            require_once wpsvip_TPL . 'admin/users/edit.php';
+            break;
+
 
         default:
             $wp_users = $wpdb->get_results("SELECT u.*,vu.*,vp.titel

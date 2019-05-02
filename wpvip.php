@@ -36,9 +36,9 @@ function wpsvip_deactivate() {
 
 register_activation_hook( __FILE__, 'wpsvip_activate' );
 register_deactivation_hook( __FILE__, 'wpsvip_deactivate' );
+include wpsvip_INC . "front_end.php";
 if ( is_admin() ) {
 	include wpsvip_INC . "admin_menu.php";
 	include wpsvip_INC . "admin_page.php";
-} else {
-
+	include wpsvip_INC . "back_end.php";
 }
