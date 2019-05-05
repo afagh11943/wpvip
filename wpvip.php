@@ -13,6 +13,7 @@ define( 'wpsvip_DIR', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 define( 'wpsvip_URL', trailingslashit( plugin_dir_url( __FILE__ ) ) );
 define( 'wpsvip_INC', trailingslashit( wpsvip_DIR . 'inc' ) );
 define( 'wpsvip_TPL', trailingslashit( wpsvip_DIR . 'tpl' ) );
+define('WPVIP_LIBS',trailingslashit(wpsvip_INC.'libs'));
 define( 'wpsvip_CSS', trailingslashit( wpsvip_URL . 'assets' . '/' . 'css' ) );
 define( 'wpsvip_JS', trailingslashit( wpsvip_URL . 'assets' . '/' . 'js' ) );
 define( 'wpsvip_IMAGES', trailingslashit( wpsvip_URL . 'assets' . '/' . 'images' ) );
@@ -36,9 +37,13 @@ function wpsvip_deactivate() {
 
 register_activation_hook( __FILE__, 'wpsvip_activate' );
 register_deactivation_hook( __FILE__, 'wpsvip_deactivate' );
-include wpsvip_INC . "front_end.php";
+
+
+
+require_once wpsvip_INC . "front_end.php";
+require_once wpsvip_INC . "shortecodes.php";
 if ( is_admin() ) {
-	include wpsvip_INC . "admin_menu.php";
-	include wpsvip_INC . "admin_page.php";
-	include wpsvip_INC . "back_end.php";
+	require_once wpsvip_INC . "admin_menu.php";
+	require_once wpsvip_INC . "admin_page.php";
+	require_once wpsvip_INC . "back_end.php";
 }

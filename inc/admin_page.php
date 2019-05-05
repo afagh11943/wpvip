@@ -140,13 +140,17 @@ function mpvip_user_page()
 
 
         default:
-            $wp_users = $wpdb->get_results("SELECT u.*,vu.*,vp.titel
+            $wp_users = $wpdb->get_results("SELECT U.*, u.ID AS idasli,vu.*,vp.titel
  FROM {$wpdb->users} u
- JOIN {$tabalname} vu
+ LEFT JOIN {$tabalname} vu
  ON u.ID = vu.user_id
- JOIN {$wpdb->prefix}vip_plans vp
+ LEFT JOIN {$wpdb->prefix}vip_plans vp
  ON vu.plan_ID = vp.plan_ID
  ");
+          /*  echo'<pre>';
+            var_dump($wp_users);
+            echo'</pre>';*/
+
 
             require_once wpsvip_TPL . 'admin/users/user.php';
             break;
