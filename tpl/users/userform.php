@@ -6,6 +6,7 @@ wpvip_flash_mas();
 
 
 
+
     ?>
     <form action="" method="post">
         <div class="form-row">

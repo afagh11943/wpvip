@@ -1,0 +1,30 @@
+.wpfrm .ok {
+    background: #8BC34A;
+    border-radius: 5px;
+    width: 90%;
+    text-align: center;
+    font-weight: bold;
+    padding: 1px 0px;
+    margin: 10px 0px;
+}
+
+.wpfrm .ok p {
+    margin: 0px !important;
+    padding: 10px 0px !important;
+}
+.wpfrm .error p {
+    margin: 0px !important;
+    padding: 10px 0px !important;
+}
+
+.wpfrm .error {
+    background: #c32410;
+    border-radius: 5px;
+    width: 90%;
+    text-align: center;
+    font-weight: bold;
+    padding: 1px 0px;
+    font-family: tahoma;
+    margin: 10px 0px;
+
+}

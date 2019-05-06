@@ -45,6 +45,50 @@ function wpvip_get_user_wallet($userID)
     }
 }
 
+function wpvip_is_user_vip($userID = null)
+
+{
+    $current_user = wp_get_current_user();
+    $userID = intval($userID) ? $userID :$current_user->ID;
+
+    if (!intval($current_user->ID)) {
+        return false;
+    }
+
+    global $wpdb;
+    $result = $wpdb->get_var($wpdb->prepare("SELECT ID FROM {$wpdb->prefix}vip_users
+                                               WHERE user_id= %d", $userID));
+    return intval($result) ? true : false;
+
+
+
+}
+
+function wpvip_add_user_to_vip($planid){
+    $userid = null;
+    $current_user = wp_get_current_user();
+    $userid = intval($userid) ? $userid :$current_user->ID;
+
+
+    if (!intval($current_user->ID)) {
+        return false;
+    }
+    if (!intval($planid)) {
+        return false;
+    }
+  var_dump( $planid);
+
+
+}
+
+//reagister style
+add_action('wp_enqueue_scripts', 'wpvip_add_user_style');
+function wpvip_add_user_style()
+{
+    wp_register_style('wp_enqueue_scripts', wpsvip_CSS . 'user.css');
+    wp_enqueue_style('wp_enqueue_scripts');
+}
+
 //message error and ok
 function wpvip_flash_mas($type = null, $message = null)
 {
@@ -53,13 +97,14 @@ function wpvip_flash_mas($type = null, $message = null)
         $_SESSION['mpvip']['flash']['message'] = $message;
 
 
-    }else{
-        if(isset( $_SESSION['mpvip']['flash']['type']) && isset($_SESSION['mpvip']['flash']['message'])){
+    } else {
+        if (isset($_SESSION['mpvip']['flash']['type']) && isset($_SESSION['mpvip']['flash']['message'])) {
             $type = $_SESSION['mpvip']['flash']['type'];
             $message = $_SESSION['mpvip']['flash']['message'];
-           echo '<div class="'.$type.'"><p>'.$message.'</p></div>';
+            echo '<div class="' . $type . '"><p>' . $message . '</p></div>';
+            unset($_SESSION['mpvip']);
 
-$_SESSION['mpvip']['flash'] = array();
+            //     $_SESSION['mpvip']['flash'] = array();
 
         }
     }

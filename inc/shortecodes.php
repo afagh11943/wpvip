@@ -7,30 +7,29 @@ function mpvip_order_form()
     global $wpdb;
     $plan_order = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}vip_plans ");
 
+
     if (isset($_POST[mpvip_submitfrm])) {
         $plan = intval($_POST['plan']);
         if ($plan) {
-$_SESSION['amin']='alii';
-      /*  echo "<pre>";
 
-        var_dump($_SESSION);
+            if (wpvip_is_user_vip(8)) {
 
-        echo "</pre>";*/
+                wpvip_flash_mas('error', 'شما قبلا یک طرح ویژه خرید کردید ...');
+            } else {
+                wpvip_add_user_to_vip(intval($_POST['plan']));
+            }
+
 
         } else {
 
-            wpvip_flash_mas('ggggggggggg','hjuuuiuihig23351');
+            wpvip_flash_mas('error', 'لطفا یک طرح را انتخاب کنید ...');
 
         }
-
 
 
     }
 
 
-    /* foreach($mnb->allcaps as $mnbv=>$ncv){
-         echo $mnbv."".$ncv."</br>";
-     }*/
-
+//wpvip_is_user_vip(1);
     require_once wpsvip_TPL . 'users/userform.php';
 }
