@@ -6,7 +6,7 @@ if (!function_exists('dd')) {
         echo '<pre>';
         var_dump($data);
         echo '</pre>';
-        exit();
+
 
     }
 }
@@ -49,7 +49,7 @@ function wpvip_is_user_vip($userID = null)
 
 {
     $current_user = wp_get_current_user();
-    $userID = intval($userID) ? $userID :$current_user->ID;
+    $userID = intval($userID) ? $userID : $current_user->ID;
 
     if (!intval($current_user->ID)) {
         return false;
@@ -61,13 +61,15 @@ function wpvip_is_user_vip($userID = null)
     return intval($result) ? true : false;
 
 
-
 }
 
-function wpvip_add_user_to_vip($planid){
-    $userid = null;
+function wpvip_add_user_to_vip($planid, $userid = null)
+{
+    global $wpdb;
+
     $current_user = wp_get_current_user();
-    $userid = intval($userid) ? $userid :$current_user->ID;
+    $userid = intval($userid) ? $userid : $current_user->ID;
+    $tabalname = $wpdb->prefix . 'vip_users';
 
 
     if (!intval($current_user->ID)) {
@@ -76,10 +78,30 @@ function wpvip_add_user_to_vip($planid){
     if (!intval($planid)) {
         return false;
     }
-  var_dump( $planid);
 
+    $plan = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}vip_plans
+                                WHERE 	plan_ID = %d
+                                LIMIT 1", $planid));
+    if (intval($plan)) {
+        $plan_expir_date = $plan->credit;
+        $current_date = new DateTime();
+        $expir_date = $current_date->add(new DateInterval('P' . $plan_expir_date . 'D'));
+        $wpdb->insert($tabalname, array(
+            'plan_id' => $planid,
+            'user_id' => $userid,
+            'expire_date' => $expir_date->format('Y-m-d  H:i:s')
+        ), array(
+                '%d',
+                '%d',
+                '%s'
+            )
+
+        );
+
+    }
 
 }
+
 
 //reagister style
 add_action('wp_enqueue_scripts', 'wpvip_add_user_style');

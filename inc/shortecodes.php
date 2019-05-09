@@ -10,9 +10,9 @@ function mpvip_order_form()
 
     if (isset($_POST[mpvip_submitfrm])) {
         $plan = intval($_POST['plan']);
-        if ($plan) {
+        if (intval($plan)) {
 
-            if (wpvip_is_user_vip(8)) {
+            if (wpvip_is_user_vip()) {
 
                 wpvip_flash_mas('error', 'شما قبلا یک طرح ویژه خرید کردید ...');
             } else {

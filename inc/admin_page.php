@@ -147,12 +147,21 @@ function mpvip_user_page()
  LEFT JOIN {$wpdb->prefix}vip_plans vp
  ON vu.plan_ID = vp.plan_ID
  ");
-          /*  echo'<pre>';
-            var_dump($wp_users);
-            echo'</pre>';*/
+            /*  echo'<pre>';
+              var_dump($wp_users);
+              echo'</pre>';*/
 
 
             require_once wpsvip_TPL . 'admin/users/user.php';
             break;
     }
+}
+function mpvip_bills_page(){
+    global $wpdb;
+    $bills = $wpdb->get_results("SELECT b.*,u.display_name
+                         FROM {$wpdb->prefix}vip_bills b
+                         JOIN {$wpdb->users} u
+                         ON b.user_id=u.id");
+
+require_once wpsvip_TPL.'admin/bills/bills.php';
 }
