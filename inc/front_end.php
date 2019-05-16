@@ -45,6 +45,27 @@ function wpvip_get_user_wallet($userID)
     }
 }
 
+function wpvip_update_user_wallet($userID, $amount, $type)
+
+{
+
+    if (intval($userID) > 0) {
+        $wallet = wpvip_get_user_wallet($userID);
+        $new_wallet = null;
+        if (intval($type == 1)) {
+            $new_wallet = $wallet + intval($amount);
+        }
+        if (intval($type == 2)) {
+            $new_wallet = $wallet - intval($amount);
+        }
+        if (intval($new_wallet)) {
+            update_user_meta($userID, 'wallet', $new_wallet);
+        }
+
+        return intval($new_wallet);
+    }
+}
+
 function wpvip_is_user_vip($userID = null)
 
 {

@@ -85,6 +85,7 @@ function mpvip_user_page()
     $error = false;
     $masege = "اطلاعات با موفقیت ذخیره کردید.";
     $tabalname = $wpdb->prefix . 'vip_users';
+    $tabelbill = $wpdb->prefix . 'vip_bills';
 
     switch ($action) {
         case'delete':
@@ -138,13 +139,48 @@ function mpvip_user_page()
             require_once wpsvip_TPL . 'admin/users/edit.php';
             break;
 
+        case'balanc':
+
+            if (isset($_POST['submit'])) {
+                $type = intval($_POST['type']);
+                $userid = intval($_POST['uid']);
+                $amount = intval($_POST['amount']);
+                if (!intval($type)) {
+                    break;
+                }
+
+
+                if (intval($userid)) {
+                    $new_wallet = wpvip_update_user_wallet($userid, $amount,$type);
+                    $wpdb->insert($tabelbill, array(
+                        'user_id' => $userid,
+                        'type' => $type,
+                        'amount' => $amount,
+                        'date'=>date('Y m d H:i:s'),
+                        'balance'=>$new_wallet,
+                        'description'=>'تغییر موجودی توسط مدیر سایت'),
+                        array(
+                        '%d',
+                        '%d',
+                        '%d',
+                        '%s',
+                        '%d',
+                        '%s',
+                    ) );
+                }
+
+            }
+
+            require_once wpsvip_TPL . 'admin/users/balanc.php';
+            break;
+
 
         default:
             $wp_users = $wpdb->get_results("SELECT U.*, u.ID AS idasli,vu.*,vp.titel
  FROM {$wpdb->users} u
- LEFT JOIN {$tabalname} vu
+  JOIN {$tabalname} vu
  ON u.ID = vu.user_id
- LEFT JOIN {$wpdb->prefix}vip_plans vp
+  JOIN {$wpdb->prefix}vip_plans vp
  ON vu.plan_ID = vp.plan_ID
  ");
             /*  echo'<pre>';
@@ -156,12 +192,14 @@ function mpvip_user_page()
             break;
     }
 }
-function mpvip_bills_page(){
+
+function mpvip_bills_page()
+{
     global $wpdb;
     $bills = $wpdb->get_results("SELECT b.*,u.display_name
                          FROM {$wpdb->prefix}vip_bills b
                          JOIN {$wpdb->users} u
-                         ON b.user_id=u.id");
+                         ON b.user_id=u.ID");
 
-require_once wpsvip_TPL.'admin/bills/bills.php';
+    require_once wpsvip_TPL . 'admin/bills/bills.php';
 }

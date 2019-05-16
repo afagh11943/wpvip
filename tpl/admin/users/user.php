@@ -55,6 +55,9 @@
                                     <a href="<?php echo esc_url(add_query_arg(array('action' => 'delete', 'usid' => $wp_user->ID))) ?>"
                                        class="" onclick="return confirm('برای حذف ایتم مطمئن هستید؟')"><span
                                             class="dashicons dashicons-trash"></span></a>
+
+                                    <a href="<?php echo esc_url(add_query_arg(array('action' => 'balanc', 'usid' => $wp_user->idasli))) ?>"
+                                       class=""><span class="dashicons dashicons-plus-alt"></span></a>
                                 </td>
 
                         </tr>
