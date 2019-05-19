@@ -81,9 +81,6 @@ function mpvip_user_page()
     $action = isset($_GET['action']) && !empty($_GET['action']) && ctype_alpha($_GET['action']) ? $_GET['action'] : null;
     $usid = isset($_GET['usid']) && ctype_digit($_GET['usid']) ? intval($_GET['usid']) : null;
     global $wpdb;
-    $succsess = false;
-    $error = false;
-    $masege = "اطلاعات با موفقیت ذخیره کردید.";
     $tabalname = $wpdb->prefix . 'vip_users';
     $tabelbill = $wpdb->prefix . 'vip_bills';
 
@@ -91,6 +88,9 @@ function mpvip_user_page()
         case'delete':
             if (intval($usid)) {
                 $wpdb->delete($tabalname, array('ID' => $usid), array('%d'));
+                $curent_user = wp_get_current_user();
+
+
                 wp_redirect(admin_url('admin.php?page=wpvip_admin_users'));
                 exit();
 
@@ -149,9 +149,11 @@ function mpvip_user_page()
                     break;
                 }
 
+                $new_wallet = wpvip_update_user_wallet($userid, $amount,$type);
+                if (intval($userid) && $new_wallet>=0) {
 
-                if (intval($userid)) {
-                    $new_wallet = wpvip_update_user_wallet($userid, $amount,$type);
+
+
                     $wpdb->insert($tabelbill, array(
                         'user_id' => $userid,
                         'type' => $type,

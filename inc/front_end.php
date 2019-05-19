@@ -58,9 +58,11 @@ function wpvip_update_user_wallet($userID, $amount, $type)
         if (intval($type == 2)) {
             $new_wallet = $wallet - intval($amount);
         }
-        if (intval($new_wallet)) {
-            update_user_meta($userID, 'wallet', $new_wallet);
+
+     if($new_wallet>=0){
+         update_user_meta($userID, 'wallet', intval($new_wallet));
         }
+
 
         return intval($new_wallet);
     }

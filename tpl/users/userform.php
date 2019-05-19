@@ -20,6 +20,10 @@
 
         </div>
         <div class="form-row">
+            <span>حساب کاربری شما :</span> <span><?php echo number_format((int)$current_user_wallet) . ' ریال'; ?></span>
+        </div>
+        <div class="form-row">
+
             <label for="acont">حساب کاربری</label>
             <input type="radio" name="online" id="acont" value="account">
             <label for="online">پرداخت آنلاین</label>
