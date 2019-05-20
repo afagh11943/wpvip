@@ -213,7 +213,9 @@ function mpvip_bills_page()
                          FROM {$wpdb->prefix}vip_bills b
                          JOIN {$wpdb->users} u
                          ON b.user_id=u.ID
-                       LIMIT  $offset,$limit ");
+
+                       LIMIT  $offset,$limit
+                        ");
 
 
     require_once wpsvip_TPL . 'admin/bills/bills.php';

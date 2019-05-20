@@ -45,9 +45,13 @@ register_deactivation_hook( __FILE__, 'wpsvip_deactivate' );
 
 
 require_once wpsvip_INC . "front_end.php";
-require_once wpsvip_INC . "shortecodes.php";
+
 if ( is_admin() ) {
 	require_once wpsvip_INC . "admin_menu.php";
 	require_once wpsvip_INC . "admin_page.php";
 	require_once wpsvip_INC . "back_end.php";
+	require_once wpsvip_INC . "metabox.php";
+
+}else{
+	require_once wpsvip_INC . "shortecodes.php";
 }
