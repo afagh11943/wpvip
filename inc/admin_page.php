@@ -149,26 +149,25 @@ function mpvip_user_page()
                     break;
                 }
 
-                $new_wallet = wpvip_update_user_wallet($userid, $amount,$type);
-                if (intval($userid) && $new_wallet>=0) {
-
+                $new_wallet = wpvip_update_user_wallet($userid, $amount, $type);
+                if (intval($userid) && $new_wallet >= 0) {
 
 
                     $wpdb->insert($tabelbill, array(
                         'user_id' => $userid,
                         'type' => $type,
                         'amount' => $amount,
-                        'date'=>date('Y m d H:i:s'),
-                        'balance'=>$new_wallet,
-                        'description'=>'تغییر موجودی توسط مدیر سایت'),
+                        'date' => date('Y-m-d h:i:s'),
+                        'balance' => $new_wallet,
+                        'description' => 'تغییر موجودی توسط مدیر سایت'),
                         array(
-                        '%d',
-                        '%d',
-                        '%d',
-                        '%s',
-                        '%d',
-                        '%s',
-                    ) );
+                            '%d',
+                            '%d',
+                            '%d',
+                            '%s',
+                            '%d',
+                            '%s',
+                        ));
                 }
 
             }
@@ -198,10 +197,24 @@ function mpvip_user_page()
 function mpvip_bills_page()
 {
     global $wpdb;
+    $pagenum = isset($_GET['pagenum']) ? absint($_GET['pagenum']) : 1;
+    $limit = 3; // number of rows in page
+    $offset = ($pagenum - 1) * $limit;
+    $billo = $wpdb->get_results("SELECT b.*,u.display_name
+                         FROM {$wpdb->prefix}vip_bills b
+                         JOIN {$wpdb->users} u
+                         ON b.user_id=u.ID
+                    ");
+
+    $total = count($billo);
+
+    $num_of_pages = ceil($total / $limit);
     $bills = $wpdb->get_results("SELECT b.*,u.display_name
                          FROM {$wpdb->prefix}vip_bills b
                          JOIN {$wpdb->users} u
-                         ON b.user_id=u.ID");
+                         ON b.user_id=u.ID
+                       LIMIT  $offset,$limit ");
+
 
     require_once wpsvip_TPL . 'admin/bills/bills.php';
 }

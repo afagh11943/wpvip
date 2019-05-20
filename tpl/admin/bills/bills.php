@@ -58,4 +58,19 @@
 
         </tbody>
     </table>
+    <?php
+    $page_links = paginate_links( array(
+        'base' => add_query_arg( 'pagenum', '%#%' ),
+        'format' => '',
+        'prev_text' => 'قبلی',
+        'next_text' => 'بعدی',
+        'total' => $num_of_pages,
+        'current' => $pagenum
+    ) );
+
+
+    if ( $page_links ) {
+        echo '<div class="tablenavin"><div class="tablenav-pagin" >' . $page_links . '</div></div>';
+    }
+    ?>
 </div>
