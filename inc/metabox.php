@@ -21,8 +21,13 @@ require_once wpsvip_TPL.'admin/metaboxes/content_plans.php';
 }
 
     function mpvip_set_content_plan_save($postid){
+        if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+            return;
+        }
         if(isset($_POST['mpvip_plane']) ){
-            
+            $plan = intval($_POST['mpvip_plane']);
+            update_post_meta($postid,'plan',$plan);
+
         }
 
 }
