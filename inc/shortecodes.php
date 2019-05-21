@@ -41,6 +41,8 @@ function mpvip_order_form()
                                 '%d',
                                 '%s',
                             ));
+               /*   global $post;
+                 wp_redirect(get_permalink($post->ID));*/
                     } else {
                         wpvip_flash_mas('error', 'موجودی حستب شما کافی نمی باشد');
                     }
