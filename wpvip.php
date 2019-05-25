@@ -8,6 +8,9 @@ Version: 1.0.0
 Author URI:  http://amin.com
 */
 //const path & url
+$wpsvip_uploud = wp_upload_dir();
+
+
 defined( 'ABSPATH' ) || exit( 'NO ACCESS' );
 define( 'wpsvip_DIR', trailingslashit( plugin_dir_path( __FILE__ ) ) );
 define( 'wpsvip_URL', trailingslashit( plugin_dir_url( __FILE__ ) ) );
@@ -18,6 +21,13 @@ define( 'wpsvip_CSS', trailingslashit( wpsvip_URL . 'assets' . '/' . 'css' ) );
 define( 'wpsvip_JS', trailingslashit( wpsvip_URL . 'assets' . '/' . 'js' ) );
 define( 'wpsvip_IMAGES', trailingslashit( wpsvip_URL . 'assets' . '/' . 'images' ) );
 define( 'wpsvip_FONTS', trailingslashit( wpsvip_URL . 'assets' . '/' . 'fonts' ) );
+define('wpsvip_uploud_dir',trailingslashit($wpsvip_uploud['basedir'].DIRECTORY_SEPARATOR.'WPVIP') );
+define('wpsvip_uploud_url',trailingslashit($wpsvip_uploud['baseurl'].'/'.'WPVIP') );
+var_dump(wpsvip_uploud_url);
+
+
+//echo wpsvip_uploud-files;
+
 define( 'wpsvip_DB_VERSION', 1 );
 
 

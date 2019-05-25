@@ -231,6 +231,7 @@ function mpvip_files_page()
             break;
 
         default:
+          dd(wp_upload_dir());
             require_once wpsvip_TPL . 'admin/file/files.php';
             break;
 
