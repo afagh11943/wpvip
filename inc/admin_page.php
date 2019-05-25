@@ -220,3 +220,21 @@ function mpvip_bills_page()
 
     require_once wpsvip_TPL . 'admin/bills/bills.php';
 }
+
+function mpvip_files_page()
+{
+    $action = isset($_GET['action']) && !empty($_GET['action']) && ctype_alpha($_GET['action']) ? $_GET['action'] : null;
+
+    switch ($action) {
+        case'filenew':
+            require_once wpsvip_TPL . 'admin/file/new_file.php';
+            break;
+
+        default:
+            require_once wpsvip_TPL . 'admin/file/files.php';
+            break;
+
+    }
+
+
+}

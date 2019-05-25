@@ -59,8 +59,8 @@ function wpvip_update_user_wallet($userID, $amount, $type)
             $new_wallet = $wallet - intval($amount);
         }
 
-     if($new_wallet>=0){
-         update_user_meta($userID, 'wallet', intval($new_wallet));
+        if ($new_wallet >= 0) {
+            update_user_meta($userID, 'wallet', intval($new_wallet));
         }
 
 
@@ -125,6 +125,39 @@ function wpvip_add_user_to_vip($planid, $userid = null)
 
 }
 
+function wpvip_get_post_plan($postid)
+{
+    if (!intval($postid)) {
+        return false;
+    }
+    return intval(get_post_meta($postid, 'plan', true));
+}
+
+function wpvip_user_can_you_post($postid, $userid)
+{
+    global $wpdb;
+    $post_plans = wpvip_get_post_plan($postid);
+    if ($post_plans) {
+
+        $user_plans = $wpdb->get_var($wpdb->prepare("SELECT ID FROM {$wpdb->prefix}vip_users
+                                                       WHERE user_id = %d AND plan_id = %d  LIMIT 1 ", $userid, $post_plans));
+        return intval($user_plans) ? true : false;
+
+    }
+    return true;
+}
+
+function mpvip_shortcod_viwe_content($planid)
+{
+    $cuurent_user = wp_get_current_user();
+    global $wpdb;
+    if (!intval($planid) || !intval($cuurent_user->ID) || intval($cuurent_user->ID) == 0) {
+        return false;
+    }
+    $has_plans = $wpdb->get_var($wpdb->prepare("SELECT ID FROM {$wpdb->prefix}vip_users
+                                                WHERE user_id = %d AND plan_id = %d  LIMIT 1 ", $cuurent_user->ID, $planid));
+    return $has_plans ? true : false;
+}
 
 //reagister style
 add_action('wp_enqueue_scripts', 'wpvip_add_user_style');
@@ -147,6 +180,7 @@ function wpvip_flash_mas($type = null, $message = null)
             $type = $_SESSION['mpvip']['flash']['type'];
             $message = $_SESSION['mpvip']['flash']['message'];
             echo '<div class="' . $type . '"><p>' . $message . '</p></div>';
+
             unset($_SESSION['mpvip']);
 
             //     $_SESSION['mpvip']['flash'] = array();
@@ -156,6 +190,23 @@ function wpvip_flash_mas($type = null, $message = null)
 
 
 }
+
+//fillter
+add_filter('the_content', 'wpvip_filter_contents_plans');
+function wpvip_filter_contents_plans($content)
+{
+    global $post;
+    $cuurent_user = wp_get_current_user();
+    $can_viwe_post = wpvip_user_can_you_post($post->ID, $cuurent_user->ID);
+    if ($can_viwe_post == true) {
+        return $content;
+    } else {
+        return 'شما ثادر به دیدن این پست نیستید';
+    }
+
+}
+
+
 
 
 

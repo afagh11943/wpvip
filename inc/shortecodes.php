@@ -3,7 +3,7 @@
 add_shortcode('footag', 'mpvip_order_form');
 function mpvip_order_form()
 {
-
+    global $post;
     global $wpdb;
     $plan_order = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}vip_plans ");
     $current_user = wp_get_current_user();
@@ -17,7 +17,12 @@ function mpvip_order_form()
 
             if (wpvip_is_user_vip()) {
 
+
                 wpvip_flash_mas('error', 'شما قبلا یک طرح ویژه خرید کردید ...');
+
+//wp_redirect(get_permalink($post->ID));
+
+
             } else {
                 $plan_Detalis = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}vip_plans WHERE plan_ID =  %d ", $plan));
                 if (isset($paymant) && $paymant == 'account') {
@@ -41,10 +46,11 @@ function mpvip_order_form()
                                 '%d',
                                 '%s',
                             ));
-               /*   global $post;
-                 wp_redirect(get_permalink($post->ID));*/
+
+
                     } else {
                         wpvip_flash_mas('error', 'موجودی حستب شما کافی نمی باشد');
+
                     }
 
                 }
@@ -62,6 +68,23 @@ function mpvip_order_form()
     }
 
 
-//wpvip_is_user_vip(1);
     require_once wpsvip_TPL . 'users/userform.php';
+}
+
+add_shortcode('plan_viwe', 'mpvip_viwe_content_plan');
+function mpvip_viwe_content_plan($atts, $content)
+{
+    $arrg = shortcode_atts(array(
+        'plan' =>0,
+
+    ), $atts);
+    $has_palen_viwe = mpvip_shortcod_viwe_content($arrg['plan']);
+    if ($has_palen_viwe) {
+
+        return $content;
+    }else{
+        return "شما مجاز به دسترسی به این مطلب نمی باشید";
+    }
+
+
 }
