@@ -224,14 +224,57 @@ function mpvip_bills_page()
 function mpvip_files_page()
 {
     $action = isset($_GET['action']) && !empty($_GET['action']) && ctype_alpha($_GET['action']) ? $_GET['action'] : null;
+    global $wpdb;
 
     switch ($action) {
         case'filenew':
+
+            if (isset($_POST['submit']) && isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
+
+                $name = $_FILES['file']['name'];
+                $size = $_FILES['file']['size'];
+
+
+                $filename = wpsvip_uploud_dir . $name;
+                $filename = iconv('utf-8', 'windows-1256', str_replace('ی', 'ي', $filename));
+
+
+                if (!file_exists(wpsvip_uploud_dir)) {
+                    mkdir(wpsvip_uploud_dir);
+
+                }
+                if (!file_exists($filename)) {
+                    $result_file = move_uploaded_file($_FILES['file']['tmp_name'], $filename);
+                    $hash_file = md5_file($filename);
+
+
+                } else {
+                    echo 'فایل از قبل وج.د داشته است';
+                }
+                if ($result_file) {
+                    $wpdb->insert($wpdb->prefix . 'vip_file', array(
+                        'file_name' => $name,
+                        'file_size' => $size,
+                        'hash_code' => $hash_file,
+                        'status' => 1
+
+                    ), array(
+                        '%s',
+                        '%d',
+                        '%s',
+                        '%d',
+                    ));
+                    echo $wpdb->last_query;
+
+                }
+
+            }
             require_once wpsvip_TPL . 'admin/file/new_file.php';
             break;
 
         default:
-          dd(wp_upload_dir());
+            $allfiles = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}vip_file ");
+
             require_once wpsvip_TPL . 'admin/file/files.php';
             break;
 

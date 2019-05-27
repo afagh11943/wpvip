@@ -205,6 +205,16 @@ function wpvip_filter_contents_plans($content)
     }
 
 }
+//files
+function wpvip_show_file_size($size){
+    if($size == 0 || $size < 1024)
+        return $size .' Byte';
+    if($size < 1024 * 1024 )
+        return ceil($size / 1024)  .' KB ';
+    if($size > 1024 * 1024 && $size < 1024 * 1024 * 1024 )
+        return ceil($size / 1024 * 1024) .' MB';
+
+}
 
 
 

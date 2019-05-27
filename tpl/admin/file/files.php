@@ -1,6 +1,6 @@
 <div class="wrap">
     <h2>
-مدیریت فایل ها
+        مدیریت فایل ها
         <a href="<?php echo esc_url(add_query_arg(array('action' => 'filenew'))) ?>" class="page-title-action"> فایل
             جدید</a>
 
@@ -10,7 +10,7 @@
         <tr>
 
             <th id="columnname" class="manage-column column-columnname" scope="col">شناسه فایل</th>
-            <th id="columnname" class="manage-column column-columnname" scope="col">نام فایل </th>
+            <th id="columnname" class="manage-column column-columnname" scope="col">نام فایل</th>
             <th id="columnname" class="manage-column column-columnname num" scope="col">هش کد</th>
             <th id="columnname" class="manage-column column-columnname num" scope="col">تعداد دانلود</th>
             <th id="columnname" class="manage-column column-columnname num" scope="col">اندازه</th>
@@ -23,7 +23,7 @@
         <tr>
 
             <th id="columnname" class="manage-column column-columnname" scope="col">شناسه فایل</th>
-            <th id="columnname" class="manage-column column-columnname" scope="col">نام فایل </th>
+            <th id="columnname" class="manage-column column-columnname" scope="col">نام فایل</th>
             <th id="columnname" class="manage-column column-columnname num" scope="col">هش کد</th>
             <th id="columnname" class="manage-column column-columnname num" scope="col">تعداد دانلود</th>
             <th id="columnname" class="manage-column column-columnname num" scope="col">اندازه</th>
@@ -35,15 +35,15 @@
         <tbody>
 
 
-        <?php if (count($bills) > 0): ?>
-            <?php foreach ($bills as $bill): ?>
+        <?php if ($allfiles && count($allfiles) > 0): ?>
+            <?php foreach ($allfiles as $allfile): ?>
                 <tr class="alternate">
-                    <td class="column-columnname" scope="row"><?php echo $bill->display_name; ?></td>
-                    <td class="column-columnname" scope="row"><?php echo mpvip_get_status_bills($bill->type) ; ?></td>
-                    <td class="column-columnname" scope="row"><?php echo number_format($bill->amount).'ریال'; ?></td>
-                    <td class="column-columnname" scope="row"><?php echo parsidate("Y-m-d", $bill->date, 'per'); ?></td>
-                    <td class="column-columnname" scope="row"><?php echo number_format( $bill->balance).'ریال'; ?></td>
-                    <td class="column-columnname" scope="row"><?php echo $bill->description; ?></td>
+                    <td class="column-columnname" scope="row"><?php echo $allfile->ID; ?></td>
+                    <td class="column-columnname" scope="row"><?php echo $allfile->file_name; ?></td>
+                    <td class="column-columnname" scope="row"><?php echo $allfile->hash_code; ?></td>
+                    <td class="column-columnname" scope="row"><?php echo $allfile->download_count; ?></td>
+                    <td class="column-columnname" scope="row"><?php echo wpvip_show_file_size( $allfile->file_size); ?></td>
+                    <td class="column-columnname" scope="row"><?php echo $allfile->status; ?></td>
                 </tr>
             <?php endforeach; ?>
 
@@ -62,7 +62,4 @@
     </table>
 
 
-
-
-
-    </div>
+</div>
