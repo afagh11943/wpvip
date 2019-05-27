@@ -107,7 +107,15 @@ function wpvip_handler_download($file_hash_code)
     global $wpdb;
     $file_item = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}vip_file
                                               WHERE hash_code=%s", $file_hash_code));
-    var_dump($file_item);
+    if ($file_item) {
+        $file_name = $file_item->file_name;
+     //dd($file_name);
+        $file_patch = wpsvip_uploud_dir . $file_name;
+     $file_patch = iconv('utf-8', 'windows-1256', str_replace('ی', 'ي', $file_patch));
+    // dd(pathinfo($file_patch));
+      wpvip_download_file($file_patch,$file_item->ID);
+
+    };
 
 }
 
