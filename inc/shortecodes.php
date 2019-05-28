@@ -1,5 +1,5 @@
 <?php
-
+//FORM
 add_shortcode('footag', 'mpvip_order_form');
 function mpvip_order_form()
 {
@@ -71,20 +71,47 @@ function mpvip_order_form()
     require_once wpsvip_TPL . 'users/userform.php';
 }
 
+//FILTER CONTENT
 add_shortcode('plan_viwe', 'mpvip_viwe_content_plan');
 function mpvip_viwe_content_plan($atts, $content)
 {
     $arrg = shortcode_atts(array(
-        'plan' =>0,
+        'plan' => 0,
 
     ), $atts);
     $has_palen_viwe = mpvip_shortcod_viwe_content($arrg['plan']);
     if ($has_palen_viwe) {
 
-        return $content;
-    }else{
+        return do_shortcode($content);
+    } else {
         return "شما مجاز به دسترسی به این مطلب نمی باشید";
     }
 
 
 }
+
+//DOWNLOAD
+add_shortcode('wpvip_file_dl', 'mpvip_download_file_shortcode');
+function mpvip_download_file_shortcode($atts, $contents)
+{
+    global $wpdb;
+    $arrg = shortcode_atts(array(
+        'id' => 0,
+    ), $atts);
+    $file_id = intval($arrg['id']);
+
+    $file_item = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}vip_file
+                                   WHERE ID=%d ", $file_id));
+    if (!$file_item || !$file_id) {
+        return 'فایل معتبر نمی باشد';
+    }
+
+    $contents = '<div><p>
+<a  href="download/file/'.$file_item->hash_code.' ">refdttrtrt</a></p></div>';
+
+    return $contents;
+
+
+
+}
+

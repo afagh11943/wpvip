@@ -14,6 +14,7 @@
             <th id="columnname" class="manage-column column-columnname num" scope="col">هش کد</th>
             <th id="columnname" class="manage-column column-columnname num" scope="col">تعداد دانلود</th>
             <th id="columnname" class="manage-column column-columnname num" scope="col">اندازه</th>
+            <th id="columnname" class="manage-column column-columnname num" scope="col">کد کوتاه</th>
             <th id="columnname" class="manage-column column-columnname num" scope="col">وضعیت</th>
 
         </tr>
@@ -27,6 +28,7 @@
             <th id="columnname" class="manage-column column-columnname num" scope="col">هش کد</th>
             <th id="columnname" class="manage-column column-columnname num" scope="col">تعداد دانلود</th>
             <th id="columnname" class="manage-column column-columnname num" scope="col">اندازه</th>
+            <th id="columnname" class="manage-column column-columnname num" scope="col">کد کوتاه</th>
             <th id="columnname" class="manage-column column-columnname num" scope="col">وضعیت</th>
 
         </tr>
@@ -43,6 +45,7 @@
                     <td class="column-columnname" scope="row"><?php echo $allfile->hash_code; ?></td>
                     <td class="column-columnname" scope="row"><?php echo $allfile->download_count; ?></td>
                     <td class="column-columnname" scope="row"><?php echo wpvip_show_file_size( $allfile->file_size); ?></td>
+                    <td class="column-columnname" scope="row"><?php echo '[wpvip_file_dl  id='.$allfile->ID .']'; ?></td>
                     <td class="column-columnname" scope="row"><?php echo $allfile->status; ?></td>
                 </tr>
             <?php endforeach; ?>

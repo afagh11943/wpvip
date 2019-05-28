@@ -236,7 +236,6 @@ function mpvip_files_page()
 
 
                 $filename = wpsvip_uploud_dir . $name;
-             $filename = iconv('utf-8', 'windows-1256', str_replace('ی', 'ي', $filename));
 
 
                 if (!file_exists(wpsvip_uploud_dir)) {

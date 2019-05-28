@@ -29,7 +29,8 @@ define('wpsvip_uploud_url', trailingslashit($wpsvip_uploud['baseurl'] . '/' . 'W
 
 define('wpsvip_DB_VERSION', 1);
 
-
+global $post;
+var_dump($post);
 add_action('init', 'wpwip_bufer');
 
 function wpwip_bufer()
@@ -51,12 +52,7 @@ function wpsvip_deactivate()
 register_activation_hook(__FILE__, 'wpsvip_activate');
 register_deactivation_hook(__FILE__, 'wpsvip_deactivate');
 
-function custom_rewrite_basic()
-{
-    add_rewrite_rule('^leaf/([0-9]+)/?', 'index.php?page_id=$matches[1]', 'top');
-}
 
-add_action('init', 'custom_rewrite_basic');
 
 
 require_once wpsvip_INC . "front_end.php";
@@ -71,14 +67,20 @@ if (is_admin()) {
 } else {
     require_once wpsvip_INC . "shortecodes.php";
 }
+global $post;
+
 
 
 //rewrite_rules
 add_action('init', function () {
-    add_rewrite_rule('^download/file/([^/].+)/?$', 'index.php?hashfile=$matches[1]', 'top');
-    if (intval(get_option('wpvip_rewrite_rule')) == 0) {
-        flush_rewrite_rules();
-        update_option('wpvip_rewrite_rule', 1);
+
+    add_rewrite_rule( '(.+)?download/file/([^/].+)/?', 'index.php?pagename=$matches[1]&hashfile=$matches[2]', 'top' );
+    flush_rewrite_rules();
+
+  if (intval(get_option('wpvip_rewrite_rule')) == 0) {
+
+    update_option('wpvip_rewrite_rule', 1);
+
     }
 
 });
@@ -86,6 +88,7 @@ add_action('init', function () {
 
 add_filter('query_vars', function ($vars) {
     $vars[] = "hashfile";
+    $vars[] = "pagename";
     return $vars;
 });
 
@@ -109,11 +112,11 @@ function wpvip_handler_download($file_hash_code)
                                               WHERE hash_code=%s", $file_hash_code));
     if ($file_item) {
         $file_name = $file_item->file_name;
-     //dd($file_name);
+
         $file_patch = wpsvip_uploud_dir . $file_name;
-     $file_patch = iconv('utf-8', 'windows-1256', str_replace('ی', 'ي', $file_patch));
-    // dd(pathinfo($file_patch));
-      wpvip_download_file($file_patch,$file_item->ID);
+
+
+        wpvip_download_file($file_patch, $file_item->ID);
 
     };
 
