@@ -91,6 +91,7 @@ function mpvip_user_page()
                 $curent_user = wp_get_current_user();
 
 
+
                 wp_redirect(admin_url('admin.php?page=wpvip_admin_users'));
                 exit();
 
@@ -177,6 +178,7 @@ function mpvip_user_page()
 
 
         default:
+
             $wp_users = $wpdb->get_results("SELECT U.*, u.ID AS idasli,vu.*,vp.titel
  FROM {$wpdb->users} u
   JOIN {$tabalname} vu

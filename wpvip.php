@@ -29,13 +29,15 @@ define('wpsvip_uploud_url', trailingslashit($wpsvip_uploud['baseurl'] . '/' . 'W
 
 define('wpsvip_DB_VERSION', 1);
 
-global $post;
-var_dump($post);
+
 add_action('init', 'wpwip_bufer');
 
 function wpwip_bufer()
 {
     ob_start();
+    if(!session_id()){
+        session_start();
+    }
 }
 
 
@@ -58,6 +60,7 @@ register_deactivation_hook(__FILE__, 'wpsvip_deactivate');
 require_once wpsvip_INC . "front_end.php";
 
 
+
 if (is_admin()) {
     require_once wpsvip_INC . "admin_menu.php";
     require_once wpsvip_INC . "admin_page.php";
@@ -65,9 +68,11 @@ if (is_admin()) {
     require_once wpsvip_INC . "metabox.php";
 
 } else {
+
     require_once wpsvip_INC . "shortecodes.php";
+    require_once wpsvip_INC . "gateways.php";
 }
-global $post;
+
 
 
 
@@ -75,10 +80,10 @@ global $post;
 add_action('init', function () {
 
     add_rewrite_rule( '(.+)?download/file/([^/].+)/?', 'index.php?pagename=$matches[1]&hashfile=$matches[2]', 'top' );
-    flush_rewrite_rules();
+
 
   if (intval(get_option('wpvip_rewrite_rule')) == 0) {
-
+      flush_rewrite_rules();
     update_option('wpvip_rewrite_rule', 1);
 
     }
@@ -94,6 +99,7 @@ add_filter('query_vars', function ($vars) {
 
 function change_post_per_page_wpent($query)
 {
+
     if (isset($query->query_vars['hashfile'])) {
         $file_hash_code = $query->query_vars['hashfile'];
         wpvip_handler_download($file_hash_code);
@@ -121,5 +127,6 @@ function wpvip_handler_download($file_hash_code)
     };
 
 }
+
 
 

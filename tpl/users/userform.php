@@ -27,9 +27,9 @@
         <div class="form-row">
 
             <label for="acont">حساب کاربری</label>
-            <input type="radio" name="online" id="acont" value="account">
+            <input type="radio" name="online_pay" id="acont" value="account">
             <label for="online">پرداخت آنلاین</label>
-            <input type="radio" name="online" id="online" value="online">
+            <input type="radio" name="online_pay" id="online" value="online">
         </div>
 
         <div class="form-row">

@@ -8,19 +8,19 @@ function mpvip_order_form()
     $plan_order = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}vip_plans ");
     $current_user = wp_get_current_user();
     $current_user_wallet = get_user_meta($current_user->ID, 'wallet', true);
+    $adressuirl = add_query_arg(array('gateway' => 'paymant'), get_permalink($post->ID));
 
 
-    if (isset($_POST[mpvip_submitfrm])) {
+    if (isset($_POST['mpvip_submitfrm'])) {
         $plan = intval($_POST['plan']);
-        $paymant = intval($_POST['online']);
+        $paymant = $_POST['online_pay'];
+
         if (intval($plan)) {
 
             if (wpvip_is_user_vip()) {
 
 
                 wpvip_flash_mas('error', 'شما قبلا یک طرح ویژه خرید کردید ...');
-
-//wp_redirect(get_permalink($post->ID));
 
 
             } else {
@@ -53,6 +53,21 @@ function mpvip_order_form()
 
                     }
 
+                } elseif (isset($paymant) && $paymant == 'online') {
+                    $paymant_rus_number = time() . $current_user->ID;
+                    $_SESSION['rus_number'] = $paymant_rus_number;
+                    $paymant_online = array(
+                        'MerchantID' => '6030dc72-6a31-11e7-845b-000c295eb8fc',
+                        'amount' => intval($plan_Detalis->price),
+                        'adrresback' => $adressuirl,
+                        'res_num' => $paymant_rus_number,
+                        'email' => '',
+                        'Mobile' => '',
+                        'user_id' => $current_user->ID
+                    );
+                    wpvip_zarinpal_request($paymant_online);
+
+
                 }
 
             }
@@ -61,6 +76,37 @@ function mpvip_order_form()
         } else {
 
             wpvip_flash_mas('error', 'لطفا یک طرح را انتخاب کنید ...');
+
+        }
+
+
+    }
+
+    if (isset($_GET['gateway']) && !empty($_GET['gateway']) && isset($_GET['Authority'])) {
+        if ($_GET['gateway'] == 'paymant') {
+            $res_num = $_SESSION['rus_number'];
+            $paymant_detalis = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}vip_payment
+                                                               WHERE payment_res_num=%s", $res_num));
+
+
+
+            $param_verfy = array(
+                'MerchantID' => '6030dc72-6a31-11e7-845b-000c295eb8fc',
+                'amount' => intval($paymant_detalis->payment_amount),
+                'Authority' => $_GET['Authority'],
+                'Status' => $_GET['Status'],
+                'resnum'=>$res_num
+
+            );
+
+          $res_ver = wpvip_zarinpal_verify($param_verfy);
+            if($res_ver){
+                echo 'پرداخت شما با موفقیت انجام شد.';
+                echo 'شماره پیگری شما '.$res_ver['ref_num'];
+            }else{
+                echo 'پرداخت شما ناموفق بود';
+                echo 'کد خطا'.$res_ver['ress_num'];
+            }
 
         }
 
@@ -107,10 +153,9 @@ function mpvip_download_file_shortcode($atts, $contents)
     }
 
     $contents = '<div><p>
-<a  href="download/file/'.$file_item->hash_code.' ">refdttrtrt</a></p></div>';
+<a  href="download/file/' . $file_item->hash_code . ' ">refdttrtrt</a></p></div>';
 
     return $contents;
-
 
 
 }

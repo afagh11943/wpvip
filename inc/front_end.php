@@ -6,6 +6,7 @@ if (!function_exists('dd')) {
         echo '<pre>';
         var_dump($data);
         echo '</pre>';
+        exit;
 
 
     }
@@ -354,6 +355,7 @@ function wpvip_download_file($file,$fileid){
         exit;
     }
 }
+
 
 
 
