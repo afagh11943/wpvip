@@ -12,8 +12,13 @@ function mpvip_order_form()
 
 
     if (isset($_POST['mpvip_submitfrm'])) {
+
+if(isset($_POST['online_pay'])){
+    $paymant = $_POST['online_pay'];
+}
+
         $plan = intval($_POST['plan']);
-        $paymant = $_POST['online_pay'];
+
 
         if (intval($plan)) {
 
@@ -89,23 +94,22 @@ function mpvip_order_form()
                                                                WHERE payment_res_num=%s", $res_num));
 
 
-
             $param_verfy = array(
                 'MerchantID' => '6030dc72-6a31-11e7-845b-000c295eb8fc',
                 'amount' => intval($paymant_detalis->payment_amount),
                 'Authority' => $_GET['Authority'],
                 'Status' => $_GET['Status'],
-                'resnum'=>$res_num
+                'resnum' => $res_num
 
             );
 
-          $res_ver = wpvip_zarinpal_verify($param_verfy);
-            if($res_ver){
+            $res_ver = wpvip_zarinpal_verify($param_verfy);
+            if ($res_ver) {
                 echo 'پرداخت شما با موفقیت انجام شد.';
-                echo 'شماره پیگری شما '.$res_ver['ref_num'];
-            }else{
+                echo 'شماره پیگری شما ' . $res_ver['ref_num'];
+            } else {
                 echo 'پرداخت شما ناموفق بود';
-                echo 'کد خطا'.$res_ver['ress_num'];
+                echo 'کد خطا' . $res_ver['ress_num'];
             }
 
         }

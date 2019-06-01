@@ -35,9 +35,9 @@ add_action('init', 'wpwip_bufer');
 function wpwip_bufer()
 {
     ob_start();
-    if(!session_id()){
+/* if(!session_id()){
         session_start();
-    }
+    }*/
 }
 
 

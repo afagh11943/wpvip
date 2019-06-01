@@ -5,6 +5,7 @@
 
 
 
+
     ?>
     <form action="" method="post">
         <div class="form-row">
@@ -29,7 +30,7 @@
             <label for="acont">حساب کاربری</label>
             <input type="radio" name="online_pay" id="acont" value="account">
             <label for="online">پرداخت آنلاین</label>
-            <input type="radio" name="online_pay" id="online" value="online">
+            <input type="radio" name="online_pay" id="online" value="online" checked>
         </div>
 
         <div class="form-row">

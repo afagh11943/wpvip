@@ -1,6 +1,10 @@
 <?php
 function mpvip_dashbord()
 {
+    global $wpdb;
+    $count_user = $wpdb->get_var("SELECT COUNT(ID) FROM {$wpdb->prefix}vip_users ");
+    echo $count_user;
+
     require_once wpsvip_TPL . 'admin/dashboard/dashboard.php';
 }
 
@@ -89,7 +93,6 @@ function mpvip_user_page()
             if (intval($usid)) {
                 $wpdb->delete($tabalname, array('ID' => $usid), array('%d'));
                 $curent_user = wp_get_current_user();
-
 
 
                 wp_redirect(admin_url('admin.php?page=wpvip_admin_users'));
@@ -282,4 +285,34 @@ function mpvip_files_page()
     }
 
 
+}
+
+function mpvip_code_page()
+{
+    $action = isset($_GET['action']) && !empty($_GET['action']) && ctype_alpha($_GET['action']) ? $_GET['action'] : null;
+    global $wpdb;
+
+    switch ($action) {
+        case 'new':
+
+            if(isset($_POST['submit'])){
+                $persent = intval($_POST['persent']);
+                $expire_date = $_POST['expire_date'];
+                if($persent && $expire_date){
+                    $code_hash = substr(uniqid('',true),0,8);
+                    $status= false;
+                    $wpdb->query($wpdb->prepare("INSERT INTO {$wpdb->prefix}vip_cods (code_hash, code_persent, 	code_expire_date, code_count_limit, code_status) VALUE(%s,%d,DATE_ADD(DATE(NOW()),INTERVAL %s DAY),%d,%d)",$code_hash,$persent,$expire_date,0,$status));
+                }
+            }
+            require_once wpsvip_TPL . 'admin/code/new_code.php';
+            break;
+
+        default:
+            $allcodes = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}vip_cods");
+
+
+            require_once wpsvip_TPL . 'admin/code/code.php';
+            break;
+
+    }
 }

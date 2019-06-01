@@ -106,7 +106,7 @@ function wpvip_add_user_to_vip($planid, $userid = null)
     $plan = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}vip_plans
                                 WHERE 	plan_ID = %d
                                 LIMIT 1", $planid));
-    if (intval($plan)) {
+    if ($plan) {
         $plan_expir_date = $plan->credit;
         $current_date = new DateTime();
         $expir_date = $current_date->add(new DateInterval('P' . $plan_expir_date . 'D'));
@@ -182,9 +182,9 @@ function wpvip_flash_mas($type = null, $message = null)
             $message = $_SESSION['mpvip']['flash']['message'];
             echo '<div class="' . $type . '"><p>' . $message . '</p></div>';
 
-            unset($_SESSION['mpvip']);
 
-            //     $_SESSION['mpvip']['flash'] = array();
+
+     unset($_SESSION['mpvip']);
 
         }
     }

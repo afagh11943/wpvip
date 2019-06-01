@@ -7,6 +7,7 @@ function wp_add_admin_menu() {
 	add_submenu_page( 'wpvip_admin', 'کاربران', 'کاربران', 'manage_options', 'wpvip_admin_users', 'mpvip_user_page' );
 	add_submenu_page( 'wpvip_admin', 'صورتحساب', 'صورتحساب ها', 'manage_options', 'wpvip_bills_users', 'mpvip_bills_page' );
 	add_submenu_page( 'wpvip_admin', 'فایل', ' فایل ها', 'manage_options', 'wpvip_file_users', 'mpvip_files_page' );
+	add_submenu_page( 'wpvip_admin', 'کد', '  کد ها', 'manage_options', 'wpvip_code_users', 'mpvip_code_page' );
 	add_style_css();
 
 }
